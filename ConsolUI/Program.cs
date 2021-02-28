@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Business.Abstract;
 using Business.Concrete;
+using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
 
@@ -11,29 +12,11 @@ namespace ConsolUI
     {
         static void Main(string[] args)
         {
-            CarManager carManager = new CarManager(new InMemoryCarDal());
-            Console.WriteLine("Verilen bilgilerle yeni arabamızı eklemeye çalışıyoruz.\n");
-            carManager.Add(new Car
+            CarManager carManager = new CarManager(new EfCarDal());
+
+            foreach (var car in carManager.GetByDailyPrice(300,650))
             {
-                CarId = 11,
-                BrandId = 2,
-                ColorId = 2,
-                ModelYear = "2018",
-                DailyPrice = 500,
-                Description = "Seçilen araç kiralanır, muadili yoktur."
-            });
-            carManager.Update(new Car
-            {
-                CarId = 5,
-                BrandId = 2,
-                ColorId = 2,
-                ModelYear = "2017",
-                DailyPrice = 212,
-                Description = "Seçilen araç kiralanır, muadili yoktur."
-            });
-            foreach (var car in carManager.GetAll())
-            {
-                Console.WriteLine(car.ModelYear + " " + car.Description);
+                Console.WriteLine(car.Description);
             }
         }
     }

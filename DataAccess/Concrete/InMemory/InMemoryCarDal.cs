@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -13,7 +14,6 @@ namespace DataAccess.Concrete.InMemory
     {
         List<Car> _cars;
         
-
         public InMemoryCarDal()
         {
             _cars = new List<Car>
@@ -62,6 +62,15 @@ namespace DataAccess.Concrete.InMemory
             carToUpdate.Description = car.Description;
 
         }
-        
+
+        public List<Car> GetAll(Expression<Func<Car, bool>> filter = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Car Get(Expression<Func<Car, bool>> filter)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

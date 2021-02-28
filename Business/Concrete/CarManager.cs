@@ -8,10 +8,10 @@ using Entities.Concrete;
 
 namespace Business.Concrete
 {
-    public class CarManager:ICarService
+    public class CarManager :Brand,ICarService
     {
-        private ICarDal _carDal;
-
+        ICarDal _carDal;
+        Brand brand = new Brand();
 
         public CarManager(ICarDal carDal)
         {
@@ -19,8 +19,16 @@ namespace Business.Concrete
         }
         public void Add(Car car)
         {
-            _carDal.Add(car);
-            Console.WriteLine("Araç Başarıyla Eklendi");
+            if (car.DailyPrice>0 && brand.BrandName.Length>2)
+            {
+                _carDal.Add(car);
+                Console.WriteLine("Araç Başarıyla Eklendi");
+            }
+            else
+            {
+                Console.WriteLine("Kirayı 0 giremezsiniz ve Marka yı iki karakterden fazla giriniz");
+            }
+            
         }
 
         public void Delete(Car car)
@@ -41,5 +49,19 @@ namespace Business.Concrete
             return _carDal.GetAll();
         }
 
+        public List<Car> GetAllByBrandId(int id)
+        {
+            return _carDal.GetAll(c => c.BrandId == id);
+        }
+
+        public List<Car> GetByDailyPrice(decimal min, decimal max)
+        {
+            return _carDal.GetAll(c => c.DailyPrice >= min && c.DailyPrice <= max);
+        }
+
+        public List<Car> GetAllByColorId(int id)
+        {
+            return _carDal.GetAll(c => c.ColorId == id);
+        }
     }
 }

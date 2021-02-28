@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using Business.Abstract;
-using Business.Concrete;
+﻿using Business.Concrete;
 using DataAccess.Concrete.EntityFramework;
-using DataAccess.Concrete.InMemory;
-using Entities.Concrete;
+using System;
 
 namespace ConsoleUI
 {
@@ -14,9 +10,9 @@ namespace ConsoleUI
         {
             CarManager carManager = new CarManager(new EfCarDal());
 
-            foreach (var car in carManager.GetByDailyPrice(300,650))
+            foreach (var car in carManager.GetAll())
             {
-                Console.WriteLine(car.Description);
+                Console.WriteLine(car.DailyPrice);
             }
         }
     }

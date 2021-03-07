@@ -11,14 +11,6 @@ select*from Brands
 delete from Brands
 DBCC CHECKIDENT ('Brands',RESEED,0) --id sıfırlama
 
-insert into dbo.Cars(BrandId, ColorId, ModelYear, Description, DailyPrice)values('1','1','2020','Teminat Gerekli','650')
-insert into dbo.Cars(ModelYear, Description, DailyPrice)values('2020','Teminat Gerekli','600')
-insert into dbo.Cars(ModelYear, Description, DailyPrice)values('2020','Teminat Gerekli','600')
-insert into dbo.Cars(ModelYear, Description, DailyPrice)values('2019','Teminat Gerekmez','400')
-insert into dbo.Cars(ModelYear, Description, DailyPrice)values('2019','Teminat Gerekmez','350')
-insert into dbo.Cars(ModelYear, Description, DailyPrice)values('2018','Teminat Gerekmez','250')
-insert into dbo.Cars(ModelYear, Description, DailyPrice)values('2018','Teminat Gerekmez','200')
-insert into dbo.Cars(ModelYear, Description, DailyPrice)values('2017','Teminat Gerekmez','190')
 
 select*from Cars
 

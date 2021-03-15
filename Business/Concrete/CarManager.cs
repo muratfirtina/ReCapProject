@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Result;
 using DataAccess.Abstract;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
@@ -9,65 +11,78 @@ using Entities.DTOs;
 
 namespace Business.Concrete
 {
-    public class CarManager :Brand,ICarService
+    public class CarManager :ICarService
     {
         ICarDal _carDal;
-        Brand brand = new Brand();
 
         public CarManager(ICarDal carDal)
         {
             _carDal = carDal;
         }
-        public void Add(Car car)
+        public IResult Add(Car car)
         {
-            if (car.DailyPrice>0 && brand.BrandName.Length>2)
+            if (car.CarName.Length<2)
             {
-                _carDal.Add(car);
-                Console.WriteLine("Araç Başarıyla Eklendi");
+                return new ErrorResult(Messages.CarNameInvalid);
             }
-            else
-            {
-                Console.WriteLine("Kirayı 0 giremezsiniz ve Marka yı iki karakterden fazla giriniz");
-            }
+            _carDal.Add(car);
             
+            return new SuccessResult(Messages.CarAdded);
+
         }
 
-        public void Delete(Car car)
+        public IResult Delete(Car car)
         {
+
             _carDal.Delete(car);
-            Console.WriteLine("Araç Başarıyla Silindi");
+            return new SuccessResult(Messages.CarDeleted);
+
         }
 
-        public void Update(Car car)
+        public IResult Update(Car car)
         {
+            if (car.CarName.Length < 2)
+            {
+                return new ErrorResult(Messages.CarNameInvalid);
+            }
             _carDal.Update(car);
-            Console.WriteLine("Araç Güncellendi");
+
+            return new SuccessResult(Messages.CarUpdated);
         }
 
-        public List<Car> GetAll()
+        public IDataResult<List<Car>> GetAll()
         {
-            
-            return _carDal.GetAll();
+            if (DateTime.Now.Hour==22)
+            {
+                return new ErrorDataResult<List<Car>>(Messages.MaintenanceTime);
+            }
+
+            return new SuccesDataResult<List<Car>>(_carDal.GetAll(), Messages.CarsListed);
         }
 
-        public List<Car> GetAllByBrandId(int id)
+        public IDataResult<List<Car>> GetAllByBrandId(int id)
         {
-            return _carDal.GetAll(c => c.BrandId == id);
+            return new SuccesDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == id));
         }
 
-        public List<Car> GetByDailyPrice(decimal min, decimal max)
+        public IDataResult<List<Car>> GetByDailyPrice(decimal min, decimal max)
         {
-            return _carDal.GetAll(c => c.DailyPrice >= min && c.DailyPrice <= max);
+            return new SuccesDataResult<List<Car>>(_carDal.GetAll(c => c.DailyPrice >= min && c.DailyPrice <= max));
         }
 
-        public List<Car> GetAllByColorId(int id)
+        public IDataResult<List<Car>> GetAllByColorId(int id)
         {
-            return _carDal.GetAll(c => c.ColorId == id);
+            return new SuccesDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == id));
         }
 
-        public List<CarDetailDto> GetCarDetails()
+        public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
-            return _carDal.GetCarDetails();
+            return new SuccesDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
+        }
+
+        public IDataResult<Car> GetById(int carId)
+        {
+            return new SuccesDataResult<Car>(_carDal.Get(c => c.CarId == carId));
         }
     }
 }

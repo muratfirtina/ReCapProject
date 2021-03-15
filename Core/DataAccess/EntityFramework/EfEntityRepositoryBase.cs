@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using Core.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Core.DataAccess.EntityFramework
 {
@@ -16,7 +17,7 @@ namespace Core.DataAccess.EntityFramework
         {
             using (TContext context = new TContext())
             {
-                var addedEntity = context.Entry(entity);
+                EntityEntry<TEntity> addedEntity = context.Entry(entity);
                 addedEntity.State = EntityState.Added;
                 context.SaveChanges();
             }

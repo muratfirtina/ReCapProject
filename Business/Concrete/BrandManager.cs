@@ -4,57 +4,57 @@ using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Business.Constants;
+using Core.Utilities.Result;
 
 namespace Business.Concrete
 {
     public class BrandManager : IBrandService
+
     {
         IBrandDal _brandDal;
+
         public BrandManager(IBrandDal brandDal)
         {
             _brandDal = brandDal;
         }
-        public void Add(Brand brand)
+
+        public IResult Add(Brand brand)
         {
-            if (brand.BrandName.Length > 2)
+            if (brand.BrandName.Length < 2)
             {
-                _brandDal.Add(brand);
-                Console.WriteLine("Marka Eklendi");
+                return new ErrorResult(Messages.BrandNameInvalid);
             }
-            else
-            {
-                Console.WriteLine("Lütfen ismi iki karakterden fazla giriniz");
-            }
-            
+            _brandDal.Add(brand);
+
+            return new SuccessResult(Messages.BrandAdded);
         }
 
-        public void Delete(Brand brand)
+        public IResult Update(Brand brand)
+        {
+            if (brand.BrandName.Length < 2)
+            {
+                return new ErrorResult(Messages.BrandNameInvalid);
+            }
+            _brandDal.Update(brand);
+
+            return new SuccessResult(Messages.BrandUpdated);
+        }
+
+        public IResult Delete(Brand brand)
         {
             _brandDal.Delete(brand);
-            Console.WriteLine("Marka Silindi");
+            return new SuccessResult(Messages.BrandDeleted);
         }
 
-        public List<Brand> GetAll()
+        public IDataResult<List<Brand>> GetAll()
         {
-            return _brandDal.GetAll();
+            return new SuccesDataResult<List<Brand>>(_brandDal.GetAll(), Messages.BrandsListed);
         }
 
-        public Brand GetById(int brandId)
+        public IDataResult<Brand> GetById(int brandId)
         {
-            return _brandDal.Get(b => b.BrandId == brandId);
-        }
-
-        public void Update(Brand brand)
-        {
-            if (brand.BrandName.Length > 2)
-            {
-                _brandDal.Update(brand);
-                Console.WriteLine("Marka Güncellendi");
-            }
-            else
-            {
-                Console.WriteLine("Lütfen ismi iki karakterden fazla giriniz");
-            }
+            return new SuccesDataResult<Brand>(_brandDal.Get(b => b.BrandId == brandId));
         }
     }
 }

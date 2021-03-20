@@ -6,6 +6,7 @@ using Business.Constants;
 using Core.Utilities.Result;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 
 namespace Business.Concrete
 {
@@ -20,8 +21,13 @@ namespace Business.Concrete
 
         public IResult Add(Rental rental)
         {
-            _rentalDal.Add(rental);
-            return new SuccessResult();
+            if (rental.ReturnDate != null)
+            {
+                _rentalDal.Add(rental);
+                return new SuccessResult(Messages.RentalAdded);
+            }
+            
+            return new ErrorResult(Messages.RentalInvalid);
         }
 
         public IResult Delete(Rental rental)
@@ -44,6 +50,11 @@ namespace Business.Concrete
         {
             _rentalDal.Update(rental);
             return new SuccessResult();
+        }
+
+        public IDataResult<List<RentalDetailDto>> GetRentalDetails()
+        {
+            return new SuccesDataResult<List<RentalDetailDto>>(_rentalDal.GetRentDetails());
         }
     }
 }

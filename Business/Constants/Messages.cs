@@ -17,6 +17,8 @@ namespace Business.Constants
         public static string ColorsListed= "Markalar Listelendi";
         public static string UsersListed= "Kullanıcılar Listelendi";
         public static string RentalsListed= "Kiralamalar Listelendi";
+        public static string RentalAdded= "Kiralama Eklendi";
+        public static string RentalInvalid= "Araç teslim edilmediği için kiralama yapılamıyor";
         public static string CustomersListed= "Kullanıcılar Listelendi";
         public static string CarDeleted= "Araç Silindi";
         public static string BrandDeleted= "Marka Silindi";

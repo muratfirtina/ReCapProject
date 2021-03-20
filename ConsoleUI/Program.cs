@@ -3,6 +3,7 @@ using DataAccess.Concrete.EntityFramework;
 using System;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
+using Entities.DTOs;
 using Microsoft.EntityFrameworkCore.Migrations.Operations;
 
 namespace ConsoleUI
@@ -11,6 +12,9 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
+            //RentalDetailTest();
+            //CustomerAddTest();
+            //RentalAddTest();
             //RentalTest();
             //UserAddedTest();
             //CarDetailTest2();
@@ -18,6 +22,42 @@ namespace ConsoleUI
             //DailyPriceTest();
             //BrandNameTest();
             //CarDetailsTest();
+        }
+
+        private static void RentalDetailTest()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            foreach (var rent in rentalManager.GetRentalDetails().Data)
+            {
+                Console.WriteLine(rent.BrandName + "/" + rent.CarName
+                                  + "/" + rent.ColorName + "/" + rent.Description
+                                  + "/" + rent.DailyPrice + "/" + rent.ReturnDate
+                                  + "/" + rent.CustomerName);
+            }
+        }
+
+        private static void CustomerAddTest()
+        {
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            var result = customerManager.Add(new Customer
+            {
+                UserId = 1,
+                CompanyName = "Storms"
+            });
+            Console.WriteLine(result.Success);
+        }
+
+        private static void RentalAddTest()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            var result = rentalManager.Add(new Rental
+            {
+                CarId = 13,
+                CustomerId = 1,
+                RentDate = new DateTime(2021,02,01,10,30,0),
+                ReturnDate = new DateTime(2021,02,07,10,30,0)
+            });
+            Console.WriteLine(result.Success);
         }
 
         private static void RentalTest()

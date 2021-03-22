@@ -13,9 +13,9 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             //RentalDetailTest();
-            //CustomerAddTest();
             //RentalAddTest();
             //RentalTest();
+            //CustomerAddTest();
             //UserAddedTest();
             //CarDetailTest2();
             //CarAdd();

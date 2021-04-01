@@ -25,6 +25,10 @@ namespace Business.Constants
         public static string ColorDeleted= "Renk Silindi";
         public static string CarUpdated= "Araç Güncellendi";
         public static string BrandUpdated= "Marka Güncellendi";
-        public static string UserMailInvalid= "Email adresi hatalı veya Kullanılıyor.";
+        public static string UserMailInvalid = "Email adresi hatalı veya Kullanılıyor.";
+        public static string CarImageAdded = "Araç Fotoğrafı Eklendi.";
+        public static string CarImageDeleted = "Araç Fotoğrafı Silindi";
+        public static string CarImagesListed = "Fotoğraflar Listelendi.";
+        public static string CarCheckImageLimited = "Fotoğraf Limiti 5 adet ile sınırlıdır.";
     }
 }

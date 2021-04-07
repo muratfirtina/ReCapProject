@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Business.Abstract;
 using Business.Constants;
-using Core.Utilities.Result;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 
@@ -32,12 +32,12 @@ namespace Business.Concrete
 
         public IDataResult<Customer> GetById(int userId)
         {
-            return new SuccesDataResult<Customer>(_customerDal.Get(cu => cu.UserId == userId));
+            return new SuccessDataResult<Customer>(_customerDal.Get(cu => cu.UserId == userId));
         }
 
         public IDataResult<List<Customer>> GetAll()
         {
-            return new SuccesDataResult<List<Customer>>(_customerDal.GetAll(), Messages.CustomersListed);
+            return new SuccessDataResult<List<Customer>>(_customerDal.GetAll(), Messages.CustomersListed);
         }
 
         public IResult Update(Customer customer)

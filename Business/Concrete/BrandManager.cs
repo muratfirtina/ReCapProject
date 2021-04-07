@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Business.Constants;
-using Core.Utilities.Result;
+using Core.Utilities.Results;
 
 namespace Business.Concrete
 {
@@ -49,12 +49,12 @@ namespace Business.Concrete
 
         public IDataResult<List<Brand>> GetAll()
         {
-            return new SuccesDataResult<List<Brand>>(_brandDal.GetAll(), Messages.BrandsListed);
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(), Messages.BrandsListed);
         }
 
         public IDataResult<Brand> GetById(int brandId)
         {
-            return new SuccesDataResult<Brand>(_brandDal.Get(b => b.BrandId == brandId));
+            return new SuccessDataResult<Brand>(_brandDal.Get(b => b.BrandId == brandId));
         }
     }
 }

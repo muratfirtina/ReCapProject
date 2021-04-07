@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Core.Utilities.Results;
 
-namespace Core.Utilities.Result
+namespace Core.Utilities.Results
 {
     public class DataResult<T>:Result,IDataResult<T>
     {

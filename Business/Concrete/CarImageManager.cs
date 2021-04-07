@@ -8,7 +8,7 @@ using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac;
 using Core.Utilities.Business;
 using Core.Utilities.Helpers;
-using Core.Utilities.Result;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
@@ -57,12 +57,12 @@ namespace Business.Concrete
 
         public IDataResult<CarImage> Get(int id)
         {
-            return new SuccesDataResult<CarImage>(_carImageDal.Get(cI => cI.Id == id));
+            return new SuccessDataResult<CarImage>(_carImageDal.Get(cI => cI.Id == id));
         }
 
         public IDataResult<List<CarImage>> GetAll()
         {
-            return new SuccesDataResult<List<CarImage>>(_carImageDal.GetAll(), Messages.CarImagesListed);
+            return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(), Messages.CarImagesListed);
 
         }
 

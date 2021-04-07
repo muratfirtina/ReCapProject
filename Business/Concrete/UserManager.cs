@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using Business.Abstract;
 using Business.Constants;
-using Core.Utilities.Result;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
-using Entities.Concrete;
 using System.Linq;
 using System.Linq.Expressions;
+using Core.Entities.Concrete;
 
 namespace Business.Concrete
 {
@@ -35,14 +35,24 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
-        public IDataResult<User> GetById(int id)
-        {
-            return new SuccesDataResult<User>(_userDal.Get(u => u.Id == id));
-        }
-
         public IDataResult<List<User>> GetAll()
         {
-            return new SuccesDataResult<List<User>>(_userDal.GetAll(), Messages.UsersListed);
+            return new SuccessDataResult<List<User>>(_userDal.GetAll());
+        }
+
+        public IDataResult<User> GetById(int id)
+        {
+            return new SuccessDataResult<User>(_userDal.Get(u => u.Id == id));
+        }
+
+        public User GetByMail(string email)
+        {
+            return _userDal.Get(u => u.Email == email);
+        }
+
+        public List<OperationClaim> GetClaims(User user)
+        {
+            return _userDal.GetClaims(user);
         }
 
         public IResult Update(User user)

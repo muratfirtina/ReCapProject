@@ -1,6 +1,7 @@
 ﻿using Business.Concrete;
 using DataAccess.Concrete.EntityFramework;
 using System;
+using Core.Entities.Concrete;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
 using Entities.DTOs;
@@ -16,7 +17,6 @@ namespace ConsoleUI
             //RentalAddTest();
             //RentalTest();
             //CustomerAddTest();
-            //UserAddedTest();
             //CarDetailTest2();
             //CarAdd();
             //DailyPriceTest();
@@ -77,18 +77,6 @@ namespace ConsoleUI
             }
         }
 
-        private static void UserAddedTest()
-        {
-            UserManager userManager = new UserManager(new EfUserDal());
-            var result = userManager.Add(new User
-            {
-                FirstName = "VERA",
-                LastName = "FIRTINA",
-                Email = "verafirtina@hotmail.com",
-                Password = "123456"
-            });
-            Console.WriteLine(result.Success);
-        }
 
         private static void CarDetailTest2()
         {

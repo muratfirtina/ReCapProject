@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Core.Utilities.Result;
+using Core.Utilities.Results;
 
 namespace Core.Utilities.Business
 {

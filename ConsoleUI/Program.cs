@@ -1,7 +1,9 @@
 ﻿using Business.Concrete;
 using DataAccess.Concrete.EntityFramework;
 using System;
+using Business.Abstract;
 using Core.Entities.Concrete;
+using DataAccess.Abstract;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
 using Entities.DTOs;
@@ -80,7 +82,7 @@ namespace ConsoleUI
 
         private static void CarDetailTest2()
         {
-            CarManager carManager = new CarManager(new EfCarDal());
+            CarManager carManager = new CarManager(new EfCarDal(), new BrandManager(new EfBrandDal()));
 
             var result = carManager.GetCarDetails();
 
@@ -99,7 +101,7 @@ namespace ConsoleUI
 
         private static void CarAdd()
         {
-            CarManager carManager = new CarManager(new EfCarDal());
+            CarManager carManager = new CarManager(new EfCarDal(), new BrandManager(new EfBrandDal()));
 
             var result = 
             carManager.Add(new Car
@@ -117,7 +119,7 @@ namespace ConsoleUI
 
         private static void CarDetailsTest()
         {
-            CarManager carManager = new CarManager(new EfCarDal());
+            CarManager carManager = new CarManager(new EfCarDal(), new BrandManager(new EfBrandDal()));
             foreach (var car in carManager.GetCarDetails().Data)
             {
                 Console.WriteLine(car.BrandName + "/" + car.CarName + "/" + car.ColorName + "/" + car.DailyPrice);
@@ -135,7 +137,7 @@ namespace ConsoleUI
 
         private static void DailyPriceTest()
         {
-            CarManager carManager = new CarManager(new EfCarDal());
+            CarManager carManager = new CarManager(new EfCarDal(), new BrandManager(new EfBrandDal()));
 
             foreach (var car in carManager.GetAll().Data)
             {

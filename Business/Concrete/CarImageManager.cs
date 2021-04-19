@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using Business.Abstract;
 using Business.Constants;
@@ -55,7 +56,7 @@ namespace Business.Concrete
 
         }
 
-        public IDataResult<CarImage> Get(int id)
+        public IDataResult<CarImage> GetCarImageById(int id)
         {
             return new SuccessDataResult<CarImage>(_carImageDal.Get(cI => cI.Id == id));
         }
@@ -89,5 +90,18 @@ namespace Business.Concrete
 
             return new SuccessResult();
         }
+
+        public IDataResult<List<CarImage>> GetImagesByCarId(int carId)
+        {
+            List<CarImage> nullImage = new List<CarImage>();
+            nullImage.Add(new CarImage { Id = -1, CarId = carId, ImagePath = @"noImage.jpg" });
+            var result = _carImageDal.GetAll(c => c.CarId == carId).Any();
+            if (!result)
+            {
+                return new SuccessDataResult<List<CarImage>>(nullImage, Messages.CarImagesListed);
+            }
+            return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(c => c.CarId == carId), Messages.CarImagesListed);
+        }
     }
+    
 }
